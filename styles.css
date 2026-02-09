@@ -1,12 +1,15 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Romantic', sans-serif;  /* Add this */
+    font-family: 'Romantic', sans-serif;
     height: 100vh;
     overflow: hidden;
     position: relative;
@@ -27,13 +30,14 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-    animation: slideshow 15s infinite;
+    animation: slideshow 30s infinite;
     
     /* This creates the tiled/repeated effect */
     background-repeat: repeat;
     background-size: 40%; /* Adjust this to make tiles bigger or smaller */
     background-position: 0 0;
 }
+
 .slide:nth-child(1) {
     background-image: url('images/image1.jpeg');
     animation-delay: 0s;
@@ -65,8 +69,8 @@ body {
 }
 
 @keyframes slideshow {
-    0%, 33.33% { opacity: 1; }
-    33.34%, 100% { opacity: 0; }
+    0%, 16.66% { opacity: 1; }
+    16.67%, 100% { opacity: 0; }
 }
 
 /* Overlay for better text readability */
@@ -78,29 +82,47 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, rgba(255, 20, 100, 0.4), rgba(255, 100, 150, 0.4));
+    z-index: 1;
 }
 
 /* Screen Styling */
 .screen {
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     text-align: center;
     padding: 20px;
+    position: relative;
+    z-index: 2;
+    overflow-y: auto;
 }
 
 .screen.active {
     display: flex;
 }
 
+/* Keep screen 1 centered */
+#screen1 {
+    justify-content: center;
+}
+
 h1 {
     font-size: 3.5rem;
     color: white;
-    font-family: 'Romantic', sans-serif;  /* Add this */
+    font-family: 'Romantic', sans-serif;
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 3.5rem;
+    color: white;
+    font-family: 'Romantic', sans-serif;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7);
+    margin-bottom: 40px;
+    font-weight: normal;
 }
 
 p {
@@ -145,15 +167,41 @@ button {
     background: linear-gradient(135deg, #ffb3c1, #ffa0b0);
 }
 
+/* ========================================
+   SCREEN 2: POSTER STYLING
+   ======================================== */
+
 .poster {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 20px;
     padding: 40px;
     max-width: 600px;
     width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
     animation: posterSlideIn 0.6s ease-out;
+    margin: 20px 0;
+}
+
+/* Custom scrollbar for poster */
+.poster::-webkit-scrollbar {
+    width: 10px;
+}
+
+.poster::-webkit-scrollbar-track {
+    background: rgba(255, 192, 203, 0.2);
+    border-radius: 10px;
+}
+
+.poster::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #ff1744, #ff4569);
+    border-radius: 10px;
+}
+
+.poster::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #ff4569, #ff1744);
 }
 
 @keyframes posterSlideIn {
@@ -254,10 +302,33 @@ button {
     font-style: italic;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    h1, h2 {
+        font-size: 2.5rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    button {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+    }
+    
+    .slide {
+        background-size: 50%;
+    }
+}
+
 /* Responsive for poster */
 @media (max-width: 768px) {
     .poster {
         padding: 30px 20px;
+        max-height: 85vh;
+        margin: 10px 0;
     }
     
     .poster-title {
@@ -283,5 +354,9 @@ button {
     
     .detail-item p {
         font-size: 1rem;
+    }
+    
+    .poster-image img {
+        max-height: 250px;
     }
 }
